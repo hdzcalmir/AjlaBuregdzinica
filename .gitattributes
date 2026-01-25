@@ -1,0 +1,58 @@
+# =========================
+# DEFAULTS
+# =========================
+* text=auto
+
+# =========================
+# LINE ENDINGS
+# =========================
+*.cs      text eol=lf
+*.csproj  text eol=lf
+*.sln     text eol=lf
+*.props   text eol=lf
+*.targets text eol=lf
+*.json    text eol=lf
+*.xml     text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf
+
+# =========================
+# WINDOWS SPECIFIC
+# =========================
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+
+# =========================
+# BINARY FILES
+# =========================
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.ico     binary
+*.pdf     binary
+*.zip     binary
+*.dll     binary
+*.exe     binary
+*.pdb     binary
+
+# =========================
+# DIFF RULES
+# =========================
+*.csproj diff=astextplain
+*.sln    diff=astextplain
+
+# =========================
+# MERGE RULES
+# =========================
+*.sln merge=union
+
+# =========================
+# ENCODING SAFETY
+# =========================
+*.cs      working-tree-encoding=UTF-8
+*.json    working-tree-encoding=UTF-8
+*.xml     working-tree-encoding=UTF-8
+*.md      working-tree-encoding=UTF-8

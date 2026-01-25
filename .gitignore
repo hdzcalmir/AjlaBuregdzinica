@@ -1,0 +1,112 @@
+# =========================
+# OS / SYSTEM FILES
+# =========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# USER-SPECIFIC FILES
+# =========================
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# BUILD RESULTS (OBAVEZNO)
+# =========================
+**/bin/
+**/obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+
+# =========================
+# VISUAL STUDIO / IDE
+# =========================
+.vs/
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# .NET / C#
+# =========================
+*.dll
+*.exe
+*.pdb
+*.cache
+*.deps.json
+*.runtimeconfig.json
+
+# =========================
+# NUGET
+# =========================
+**/packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# =========================
+# ASP.NET CORE CONFIG
+# =========================
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+secrets.json
+
+# =========================
+# ENVIRONMENT VARIABLES
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# PUBLISH / OUTPUT
+# =========================
+**/publish/
+wwwroot/dist/
+wwwroot/lib/
+
+# =========================
+# DATABASE FILES
+# =========================
+*.mdf
+*.ldf
+*.db
+*.sqlite
+
+# =========================
+# TEST RESULTS / COVERAGE
+# =========================
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# =========================
+# DOCKER
+# =========================
+docker-compose.override.yml
+
+# =========================
+# NODE / FRONTEND
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# TEMP / BACKUP FILES
+# =========================
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
