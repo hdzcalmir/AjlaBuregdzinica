@@ -75,7 +75,7 @@ jobs:
           cat infrastructure/buregdzinica-ajla/deployment.yml
 
           # Update the image tag in the deployment manifest with the digest
-          sed -i "s|image: ghcr.io/polo-development/buregdzinica-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/burek-ajla/deployment.yml
+          sed -i "s|image: ghcr.io/polo-development/buregdzinica-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/buregdzinica-ajla/deployment.yml
 
           # Print the file content after changes
           echo "After update:"
