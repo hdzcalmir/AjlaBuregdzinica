@@ -1,0 +1,92 @@
+name: CI/CD Pipeline for .NET 9
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_TOKEN }}
+
+      - name: Docker Build and Push
+        id: build-push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/arm64
+          tags: |
+            ghcr.io/polo-development/burek-ajla:${{ github.sha }}
+            ghcr.io/polo-development/burek-ajla:latest
+
+  update-infra:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout Infra Repository
+        uses: actions/checkout@v4
+        with:
+          repository: polo-development/infrastructure
+          ref: "main"
+          token: ${{ secrets.INFRASTRUCTURE_TOKEN }}
+          path: infrastructure
+
+      - name: Verify File Presence
+        run: |
+          echo "Checking file presence:"
+          ls -la infrastructure/burek-ajla
+          cat infrastructure/burek-ajla/deployment.yml
+
+      - name: Update Deployment Manifest
+        run: |
+          echo "Updating deployment manifest:"
+          # Print the file content before changes
+          echo "Before update:"
+          cat infrastructure/burek-ajla/deployment.yml
+
+          # Update the image tag in the deployment manifest with the digest
+          sed -i "s|image: ghcr.io/polo-development/burek-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/burek-ajla/deployment.yml
+
+          # Print the file content after changes
+          echo "After update:"
+          cat infrastructure/burek-ajla/deployment.yml
+
+      - name: Stage and Commit Changes
+        run: |
+          cd infrastructure
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add burek-ajla/deployment.yml
+          # Verify the production
+          git status
+          # Commit and push changes if there are modifications
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update image to version ${{ github.sha }}"
+            git push origin main
+          fi
