@@ -64,29 +64,29 @@ jobs:
       - name: Verify File Presence
         run: |
           echo "Checking file presence:"
-          ls -la infrastructure/burek-ajla
-          cat infrastructure/burek-ajla/deployment.yml
+          ls -la infrastructure/buregdzinica-ajla
+          cat infrastructure/buregdzinica-ajla/deployment.yml
 
       - name: Update Deployment Manifest
         run: |
           echo "Updating deployment manifest:"
           # Print the file content before changes
           echo "Before update:"
-          cat infrastructure/burek-ajla/deployment.yml
+          cat infrastructure/buregdzinica-ajla/deployment.yml
 
           # Update the image tag in the deployment manifest with the digest
-          sed -i "s|image: ghcr.io/polo-development/burek-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/burek-ajla/deployment.yml
+          sed -i "s|image: ghcr.io/polo-development/buregdzinica-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/burek-ajla/deployment.yml
 
           # Print the file content after changes
           echo "After update:"
-          cat infrastructure/burek-ajla/deployment.yml
+          cat infrastructure/buregdzinica-ajla/deployment.yml
 
       - name: Stage and Commit Changes
         run: |
           cd infrastructure
           git config user.name "GitHub Actions Bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add burek-ajla/deployment.yml
+          git add buregdzinica-ajla/deployment.yml
           # Verify the production
           git status
           # Commit and push changes if there are modifications
