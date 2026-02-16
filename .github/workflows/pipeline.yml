@@ -74,7 +74,9 @@ jobs:
           echo "Before update:"
           cat infrastructure/buregdzinica-ajla/deployment.yml
 
-          # Update the image tag in the deployment manifest with the digest
+          # Update the image tag in the deployment manifest with the new commit SHA
+          # Match either burek-ajla or buregdzinica-ajla and update to the new tag
+          sed -i "s|image: ghcr.io/polo-development/burek-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/buregdzinica-ajla/deployment.yml
           sed -i "s|image: ghcr.io/polo-development/buregdzinica-ajla:.*|image: ghcr.io/polo-development/burek-ajla:${{ github.sha }}|g" infrastructure/buregdzinica-ajla/deployment.yml
 
           # Print the file content after changes
